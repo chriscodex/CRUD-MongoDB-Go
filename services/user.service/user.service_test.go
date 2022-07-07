@@ -9,7 +9,6 @@ import (
 )
 
 func TestCreate(t *testing.T) {
-
 	user := m.User{
 		Name:      "Christian",
 		Email:     "christian@email.com",
