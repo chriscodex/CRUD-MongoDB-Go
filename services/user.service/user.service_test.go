@@ -21,6 +21,7 @@ func TestCreate(t *testing.T) {
 
 	if err != nil {
 		t.Error("La prueba de creacion de usuario, ha fallado")
+		t.Fail()
 	} else {
 		t.Log("La prueba ha sido exitosa!")
 	}
