@@ -1,19 +1,54 @@
 package main
 
 import (
-	"log"
-	"os"
+	"context"
+	"fmt"
+	"time"
 
-	"github.com/joho/godotenv"
+	m "mongodb-go/models"
+
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func main() {
-	err := godotenv.Load()
+var (
+	usr      = "christian"
+	pwd      = "123"
+	host     = "localhost"
+	port     = 27017
+	database = "mongodb-go"
+)
+
+func GetCollection(collection string) mongo.Collection {
+	uri := fmt.Sprintf("mongodb://%s:%s@%s:%d", usr, pwd, host, port)
+
+	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
+
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		panic(err.Error())
 	}
-	uri := os.Getenv("MONGODB_URI")
-	if uri == "" {
-		log.Fatal("You must set your 'MONGODB_URI' environmental variable. See\n\t https://www.mongodb.com/docs/drivers/go/current/usage-examples/#environment-variable")
+
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	err = client.Connect(ctx)
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	return *client.Database(database).Collection(collection)
+}
+
+func main() {
+	var collection = GetCollection("users")
+	var ctx = context.Background()
+	user := m.User{
+		Name:      "Christian",
+		Email:     "christian@email.com",
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	}
+	_, err := collection.InsertOne(ctx, user)
+	if err != nil {
+		panic(err)
 	}
 }
