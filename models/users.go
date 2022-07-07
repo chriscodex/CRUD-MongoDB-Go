@@ -11,9 +11,9 @@ type User struct {
 	ID        primitive.ObjectID `bson:"_id,omitempty" json:"id,omitempty"`
 	Name      string             `json:"name"`
 	Email     string             `json:"email"`
-	CreatedAt time.Time          `json:"created_at"`
-	UpdatedAt time.Time          `json:"updated_at,omitempty"`
+	CreatedAt time.Time          `bson:"created_At" json:"created_at"`
+	UpdatedAt time.Time          `bson:"created_At" json:"updated_at,omitempty"`
 }
 
 // Users: List of users
-type Users []User
+type Users []*User

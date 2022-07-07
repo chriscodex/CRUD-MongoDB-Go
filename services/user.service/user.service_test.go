@@ -28,7 +28,16 @@ func TestCreate(t *testing.T) {
 }
 
 func TestRead(t *testing.T) {
-
+	users, err := userService.Read()
+	if err != nil {
+		t.Error("La consulta de usuarios ha fallado")
+		t.Fail()
+	}
+	if len(users) == 0 {
+		t.Error("La consulta no ha retornado datos")
+	} else {
+		t.Log()
+	}
 }
 
 func TestUpdate(t *testing.T) {
