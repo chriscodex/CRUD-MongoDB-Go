@@ -4,7 +4,7 @@ import "time"
 
 // User: data of user
 type User struct {
-	ID        string    `json:"id"`
+	ID        string    `bson:"_id,omitempty" json:"id,omitempty"`
 	Name      string    `json:"name"`
 	Email     string    `json:"email"`
 	CreatedAt time.Time `json:"created_at"`

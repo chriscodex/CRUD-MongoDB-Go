@@ -1,11 +1,22 @@
 package user_repository
 
 import (
+	"context"
+	"mongodb-go/database"
 	m "mongodb-go/models"
 )
 
-func Create(user m.User) error {
+var collection = database.GetCollection("users")
+var ctx = context.Background()
 
+func Create(user m.User) error {
+	var err error
+
+	_, err = collection.InsertOne(ctx, user)
+
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
