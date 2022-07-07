@@ -1,7 +1,7 @@
 package user_repository
 
 import (
-	m "../../models"
+	m "mongodb-go/models"
 )
 
 func Create(user m.User) error {

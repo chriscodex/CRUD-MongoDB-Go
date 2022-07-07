@@ -1,8 +1,9 @@
-package services
+package user_service
 
 import (
-	m "../../models"
-	userRepository "../../repositories/user.repository"
+	userRepository "mongodb-go/repositories/user.repository"
+
+	m "mongodb-go/models"
 )
 
 func Create(user m.User) error {
