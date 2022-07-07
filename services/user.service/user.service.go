@@ -2,24 +2,32 @@ package services
 
 import (
 	m "../../models"
+	userRepository "../../repositories/user.repository"
 )
 
 func Create(user m.User) error {
 
+	err := userRepository.Create(user)
+
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
 func Read() (m.Users, error) {
 
-	return nil, nil
+	var users m.Users
+
+	return users, nil
 }
 
-func Update() error {
+func Update(user m.User, userId string) error {
 
 	return nil
 }
 
-func Delete() error {
+func Delete(userId string) error {
 
 	return nil
 }

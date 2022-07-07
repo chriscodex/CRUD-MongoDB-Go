@@ -4,22 +4,24 @@ import (
 	m "../../models"
 )
 
-func Created(user m.User) error {
+func Create(user m.User) error {
 
 	return nil
 }
 
-func Read() m.Users {
+func Read() (m.Users, error) {
+
+	var users m.Users
+
+	return users, nil
+}
+
+func Update(user m.User, userId string) error {
 
 	return nil
 }
 
-func Update() error {
-
-	return nil
-}
-
-func Delete() error {
+func Delete(userId string) error {
 
 	return nil
 }
