@@ -27,24 +27,24 @@ func TestCreate(t *testing.T) {
 	err := userService.Create(user)
 
 	if err != nil {
-		t.Error("La prueba de creacion de usuario, ha fallado")
+		t.Error("User creation test failed")
 		t.Fail()
 	} else {
-		t.Log("La prueba ha sido exitosa!")
+		t.Log("User creation test has been successful")
 	}
 }
 
 func TestRead(t *testing.T) {
 	users, err := userService.Read()
 	if err != nil {
-		t.Error("La consulta de usuarios ha fallado")
+		t.Error("User query test failed")
 		t.Fail()
 	}
 	if len(users) == 0 {
-		t.Error("La consulta no ha retornado datos")
+		t.Error("Query test has not returned data")
 		t.Fail()
 	} else {
-		t.Log("La prueba de consulta de usuarios ha sido exitosa")
+		t.Log("User query test has been successful")
 	}
 }
 
@@ -55,18 +55,18 @@ func TestUpdate(t *testing.T) {
 	}
 	err := userService.Update(user, userId)
 	if err != nil {
-		t.Error("La actualizacion de usuario ha fallado")
+		t.Error("User update test failed")
 		t.Fail()
 	} else {
-		t.Log("La prueba de actualizacion de usuario ha sido exitosa")
+		t.Log("User update test has been successful")
 	}
 }
 
 func TestDelete(t *testing.T) {
 	err := userService.Delete(userId)
 	if err != nil {
-		t.Error("La eliminacion de usuario ha fallado")
+		t.Error("User delete failed")
 	} else {
-		t.Log("La prueba de eliminación ha sido exitosa")
+		t.Log("Delete test has been successful")
 	}
 }
