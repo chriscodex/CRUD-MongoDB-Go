@@ -22,20 +22,20 @@ func Connection() (*mongo.Client, error) {
 	uri := fmt.Sprintf("mongodb://%s:%s@%s:%d", usr, pwd, host, port)
 	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
 	if err != nil {
-		return client, err
+		return nil, err
 	}
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 
 	err = client.Connect(ctx)
 	if err != nil {
-		return client, err
+		return nil, err
 	}
 	rd, _ := readpref.New(1)
 	err = client.Ping(ctx, rd)
 	if err != nil {
-		return client, err
+		return nil, err
 	}
-	return client, nil
+	return nil, nil
 }
 
 func GetCollection(collection string) mongo.Collection {
