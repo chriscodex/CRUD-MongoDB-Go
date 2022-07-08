@@ -18,23 +18,24 @@ var (
 	database = "mongodb-go"
 )
 
-func Connection() (mongo.Client, error) {
+func Connection() (*mongo.Client, error) {
 	uri := fmt.Sprintf("mongodb://%s:%s@%s:%d", usr, pwd, host, port)
 	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
 	if err != nil {
-		panic(err.Error())
+		return client, err
 	}
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+
 	err = client.Connect(ctx)
 	if err != nil {
-		panic(err.Error())
+		return client, err
 	}
 	rd, _ := readpref.New(1)
 	err = client.Ping(ctx, rd)
 	if err != nil {
-		panic(err.Error())
+		return client, err
 	}
-	return *client, nil
+	return client, nil
 }
 
 func GetCollection(collection string) mongo.Collection {
