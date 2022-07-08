@@ -7,6 +7,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
 var (
@@ -17,21 +18,26 @@ var (
 	database = "mongodb-go"
 )
 
-func GetCollection(collection string) mongo.Collection {
+func Connection() (mongo.Client, error) {
 	uri := fmt.Sprintf("mongodb://%s:%s@%s:%d", usr, pwd, host, port)
-
 	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
-
 	if err != nil {
 		panic(err.Error())
 	}
-
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	err = client.Connect(ctx)
-
 	if err != nil {
 		panic(err.Error())
 	}
+	rd, _ := readpref.New(1)
+	err = client.Ping(ctx, rd)
+	if err != nil {
+		panic(err.Error())
+	}
+	return *client, nil
+}
 
+func GetCollection(collection string) mongo.Collection {
+	client, _ := Connection()
 	return *client.Database(database).Collection(collection)
 }
