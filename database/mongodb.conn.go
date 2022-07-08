@@ -35,7 +35,7 @@ func Connection() (*mongo.Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return nil, nil
+	return client, nil
 }
 
 func GetCollection(collection string) mongo.Collection {
